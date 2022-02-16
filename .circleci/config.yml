@@ -166,14 +166,14 @@ jobs:
       - run:
           name: create inventory.txt
           command: |
-            echo "[all]" > inventory.txt
+            echo "[all]" > ~/inventory.txt
       - run:
           name: Add back-end ip to ansible inventory
           command: |
             aws ec2 describe-instances \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID:0:7}" \
-            --output text >> inventory.txt
+            --output text >> ~/inventory.txt
       - run:
           name: test inventory
           command: |
@@ -181,7 +181,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - .circleci/ansible/inventory.txt
+            - project/.circleci/ansible/inventory.txt
       - destroy-environment
 
   configure-infrastructure:
