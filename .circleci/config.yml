@@ -166,7 +166,7 @@ jobs:
       - run:
           name: create inventory.txt
           command: |
-            echo "[all]" > ~/inventory.txt
+            echo "[web]" > ~/inventory.txt
       - run:
           name: Add back-end ip to ansible inventory
           command: |
