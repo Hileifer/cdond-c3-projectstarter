@@ -41,7 +41,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [frontend-build]
+          keys: [frontend-cache]
       - run:
           name: Build front-end
           command: |
@@ -50,7 +50,7 @@ jobs:
             npm run build
       - save_cache:
           paths: [frontend/node_modules]
-          key: frontend-build
+          key: frontend-cache
 
   build-backend:
     docker:
@@ -58,7 +58,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [backend-build]
+          keys: [backend-cache]
       - run:
           name: Back-end build
           command: |
@@ -67,7 +67,7 @@ jobs:
             npm run build
       - save_cache:
           paths: [backend/node_modules]
-          key: backend-build
+          key: backend-cache
 
   test-frontend:
     docker:
@@ -75,7 +75,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [test-frontend]
+          keys: [frontend-cache]
       - run:
           name: front-end test 
           command: |
@@ -84,7 +84,7 @@ jobs:
             npm run test
       - save_cache:
           paths: [frontend/node_modules]
-          key: test-frontend
+          key: frontend-cache
                 
   test-backend:
     docker:
@@ -92,7 +92,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [test-backend]
+          keys: [backend-cache]
       - run:
           name: back-end test 
           command: |
@@ -101,7 +101,7 @@ jobs:
             npm run test
       - save_cache:
           paths: [backend/node_modules]
-          key: test-backend
+          key: backend-cache
             
   scan-frontend:
     docker:
@@ -109,7 +109,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [scan-frontend]
+          keys: [frontend-cache]
       - run:
           name: front-end scan 
           command: |
@@ -120,7 +120,7 @@ jobs:
             npm audit --audit-level=critical
       - save_cache:
           paths: [frontend/node_modules]
-          key: scan-frontend
+          key: frontend-cache
 
   scan-backend:
     docker:
@@ -128,7 +128,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [scan-backend]
+          keys: [backend-cache]
       - run:
           name: front-end scan 
           command: |
@@ -139,7 +139,7 @@ jobs:
             npm audit --audit-level=critical
       - save_cache:
           paths: [backend/node_modules]
-          key: scan-backend
+          key: backend-cache
 
   deploy-infrastructure:
     docker:
@@ -210,7 +210,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [scan-backend]
+          keys: [backend-cache]
       - run:
           name: Run migrations
           command: |
