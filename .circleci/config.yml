@@ -214,6 +214,7 @@ jobs:
       - run:
           name: Run migrations
           command: |
+            ip addr
             cd backend
             npm install
             # Run and save the migration output
