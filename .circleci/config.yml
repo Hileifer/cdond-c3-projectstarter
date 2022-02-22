@@ -212,6 +212,16 @@ jobs:
       - restore_cache:
           keys: [backend-cache]
       - run:
+          name: Install AWS CLI
+          command: |
+            apt-get update
+            apt-get install
+            apt install ca-certificates
+            echo "insecure" >> ~/.curlrc
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            ./aws/install
+      - run:
           name: Run migrations
           command: |
             cd backend
