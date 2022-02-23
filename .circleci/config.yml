@@ -258,7 +258,7 @@ jobs:
       - checkout
       - restore_cache:
           keys: [frontend-cache]
-     - run:
+      - run:
           name: Install AWS CLI
           command: |
             sudo apt-get update -y
