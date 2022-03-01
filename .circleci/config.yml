@@ -379,6 +379,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          command: |
+            yum install -y tar gzip
+      - run:
           name: old workflow id 
           command: |
             export OldWorkflowID=$(aws cloudformation \
